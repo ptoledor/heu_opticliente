@@ -1,0 +1,6 @@
+04-10-2023 16:30:01 [INFO    ] __main__        : Iniciando el modelo OptiCliente
+04-10-2023 16:30:01 [INFO    ] __main__        :   Parametros:
+04-10-2023 16:30:01 [INFO    ] __main__        :     Carpeta: C:\Users\Hugo.ubilla\OneDrive - ARAUCO\Escritorio\opticliente\oc-modelo\tests\proys\base
+04-10-2023 16:30:01 [INFO    ] __main__        :   Limpiando...
+04-10-2023 16:30:01 [INFO    ] __main__        :   Ejecutando modelo ...
+04-10-2023 16:30:10 [INFO    ] __main__        : Fin exitoso del modelo OptiCliente)       9.0 [s]    (exitcode: 0)
