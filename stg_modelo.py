@@ -529,7 +529,7 @@ for planta in parametros_planta['nombre_planta'].unique():
                     else:
                         raise NotImplementedError('A4-2. Existe un caso no considerado en el ciclo')
 
-
+            
 
 
 
@@ -591,7 +591,9 @@ for planta in parametros_planta['nombre_planta'].unique():
                                                                     producto=producto,
                                                                     antiguedad=alma.at[ix,'antiguedad'],
                                                                     volumen=alma.at[ix, 'volumen'])       
-
+            
+            else:
+                raise ValueError('metodo_priorizado debe tomar uno de los siguientes valores [ingreso, almacen]')
             #Fin de la mala practica
             
 
