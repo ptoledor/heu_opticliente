@@ -11,7 +11,7 @@ if __name__ == '__main__':
         if 'opticliente' in os.getcwd().split(os.path.sep):
             os.chdir(r'C:\Users\Hugo.ubilla\OneDrive - ARAUCO\Escritorio\opticliente\oc-modelo\tests\proys\base')
 
-
+os.chdir(r'C:\Trabajo\203_Ale\heuristica_opticliente_3oct\tests\proys\base')
 # %%
 # Lectura de parametros
 parametros = pd.read_csv("par.csv", sep = ";")
@@ -20,8 +20,6 @@ parametros = parametros.to_dict(orient='records')[0]
 mes_inicio = parametros["mes_inicio"]
 año_inicio = parametros["ano_inicio"]
 horizonte_planificacion = parametros["horizonte_planificacion"]
-#Este tiene que venir de afuera tambien hugox
-metodo_priorizado = parametros['metodo_prioridad']
 
 
 # %%
@@ -72,6 +70,7 @@ rangos_demanda_ext['antiguedad'] = rangos_demanda_ext['antiguedad'].astype(np.in
 parametros_planta = pd.read_excel('plantas.xlsx', sheet_name='parametros_planta')
 parametros_planta['stock_ideal_planta'] = (parametros_planta['ideal_dias_rollizos'] + parametros_planta['ideal_dias_astillas']) * parametros_planta['consumo_diario'] 
 dict_plantas_stock_ideal = parametros_planta.set_index(['nombre_planta', 'producto'])['stock_ideal_planta'].to_dict()
+dict_prioridad_abastecimiento = parametros_planta.set_index(['nombre_planta', 'producto'])['Prioridad_abastecimiento'].to_dict()
 
 #Lectura consumo plantas
 consumo_plantas = pd.read_excel('plantas.xlsx', sheet_name='consumo_plantas')
@@ -193,7 +192,7 @@ for planta in parametros_planta['nombre_planta'].unique():
         for mes in range(1, horizonte_planificacion+1):
             print(' ')
             print(mes, planta, producto)
-  
+
             nodos_activos = filtrado_almacen[(filtrado_almacen['nombre_planta'] == planta) & (filtrado_almacen['producto'] == producto)].copy()
             nodos_activos = list(nodos_activos['id_almacen'])
             nodos_activos.append(planta)
@@ -352,7 +351,7 @@ for planta in parametros_planta['nombre_planta'].unique():
             # Sin embargo, si funciona, quien podria ser capaz de decir algo al respecto?.
             # Inicio de la mala practica
 
-            if metodo_priorizado == 'almacen':            
+            if dict_prioridad_abastecimiento[(planta,producto)] == 'Almacenes':            
 
                 print('Algo 5: Se completa demanda faltante en primer rango (0-3) desde almacenes')
                 #Almacen -> Plata | Almacen -> Almacen
@@ -472,7 +471,7 @@ for planta in parametros_planta['nombre_planta'].unique():
                         raise NotImplementedError('A4-2. Existe un caso no considerado en el ciclo')
 
             
-            elif metodo_priorizado == 'ingreso':
+            elif dict_prioridad_abastecimiento[(planta,producto)] == 'Ingresos':
 
                 print('Algo 4: Venta de ingresos libres')
                 #De ingresos libres -> planta y almacen.
@@ -593,7 +592,7 @@ for planta in parametros_planta['nombre_planta'].unique():
                                                                     volumen=alma.at[ix, 'volumen'])       
             
             else:
-                raise ValueError('metodo_priorizado debe tomar uno de los siguientes valores [ingreso, almacen]')
+                raise ValueError('metodo_priorizado debe tomar uno de los siguientes valores [Ingresos, Almacenes]')
             #Fin de la mala practica
             
 
