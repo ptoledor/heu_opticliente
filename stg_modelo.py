@@ -359,7 +359,7 @@ for planta in parametros_planta['nombre_planta'].unique():
                 alma = pd.merge(alma, alma_prio, how='left', on='id')
                 alma = alma.sort_values(by=['prioridad', 'antiguedad'], ascending=[True, False])
                 #Solo se itera sobre el primer rango.
-                aux_rangos = rangos_demanda[rangos_demanda['id_tipo_rango'] == 1].reset_index(drop=True)
+                aux_rangos = rangos_demanda[rangos_demanda['id_tipo_rango'] == tipo_rango].reset_index(drop=True)
                 aux_rangos = np.arange(aux_rangos.at[0, 'fin_rango'], aux_rangos.at[0, 'inicio_rango']-1, -1)
                 aux_rangos
 
@@ -538,7 +538,7 @@ for planta in parametros_planta['nombre_planta'].unique():
                 alma = pd.merge(alma, alma_prio, how='left', on='id')
                 alma = alma.sort_values(by=['prioridad', 'antiguedad'], ascending=[True, False])
                 #Solo se itera sobre el primer rango.
-                aux_rangos = rangos_demanda[rangos_demanda['id_tipo_rango'] == 1].reset_index(drop=True)
+                aux_rangos = rangos_demanda[rangos_demanda['id_tipo_rango'] == tipo_rango].reset_index(drop=True)
                 aux_rangos = np.arange(aux_rangos.at[0, 'fin_rango'], aux_rangos.at[0, 'inicio_rango']-1, -1)
                 aux_rangos
 
